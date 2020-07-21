@@ -6,14 +6,16 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const util = require("util");
-const writeFileAsync = util.promisify(fs.writeFile);
+ const writeFileAsync = util.promisify(fs.writeFile);
 
 
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
+const OUTPUT_DIR = path.resolve(__dirname,"output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+let teamMembers = [];
+
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -54,16 +56,35 @@ function promptUser() {
         type: "input",
         name: "role",
         message: "What is your role?"
+      },
+      {
+        type: "input",
+        name: "add",
+        message: "Do you need to add another team member?"
       }
     ]);
+    
+    
   }
-console.log(response);
+
+  
+  
+
+// and to create objects for each team member (using the correct classes as blueprints!)
+
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
 function generateHTML(answers) {
   
-    return `
+  teamMembers.push(answers);
+  console.log(teamMembers);
+   
+  
+ 
+
+  return `
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -75,6 +96,8 @@ function generateHTML(answers) {
   <body>
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
+      
+
     ////////// insert cards here
     </div>
     </div>
@@ -89,17 +112,25 @@ function generateHTML(answers) {
 // does not.
 promptUser()
   .then(function(answers) {
-    const html = generateHTML(answers);
+    let yes = "yes";
+    let no = "no";
+  if (answers.add === yes) {
+    promptUser();
+    generateHTML(answers)
+  }; 
+    // const html = generateHTML(answers);
 
-    return writeFileAsync(outputPath, html);
+    //  return writeFileAsync(outputPath,html);
   })
-  .then(function() {
-    console.log("Successfully wrote to team.html");
+  .then(function(answers) {
+     console.log(teamMembers);
   })
   .catch(function(err) {
     console.log(err);
   });
+  
 
+//   console.log(teamMembers);
 // HINT: each employee type (manager, engineer, or intern) has slightly different
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
