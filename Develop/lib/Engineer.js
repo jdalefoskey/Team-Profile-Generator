@@ -6,6 +6,18 @@ class Engineer extends Employee {
         super(name, email, id, role);
         this.gitHubUserName = gitHubUserName;
     }
+    getName() {
+        return this.name;
+    }
+    getId() {
+        return this.id;
+    }
+    getEmail() {
+        return this.email;
+    }
+    getRole() {
+        return this.role;
+    }
     getHub() {
         return this.gitHubUserName;
     }
