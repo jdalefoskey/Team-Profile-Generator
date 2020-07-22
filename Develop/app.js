@@ -73,31 +73,15 @@ inquirer
     if (data.add === "yes") {
       getAnswers();
       // and to create objects for each team member (using the correct classes as blueprints!)
-     } else {
-      objectByClass();
-    };
+     } 
   });
 };
 
-function objectByClass () {
-
-  if (teamMembers.role === "engineer"){
-    teamMembers.className = Engineer;
-
-  } else if (teamMembers.role === "intern") {
-    teamMembers.className = Intern;
-
-  } else {
-    teamMembers.className = Manager;
-   
-
-  };
-
-  for (i=0; i <teamMembers.length; i++) {
-    console.log(teamMembers[i]);
-  };
-
-};
+ for (let i=0; i < teamMembers.length; i++) {
+    
+     = new Engineer()
+    
+ }
 
 
  
