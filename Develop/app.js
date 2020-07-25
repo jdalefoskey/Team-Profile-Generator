@@ -13,7 +13,7 @@ const render = require("./lib/htmlRenderer");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+let employees1 = [];
 let employees = [];
 let classes = [];
 let newperson;
@@ -48,11 +48,11 @@ function getAnswers() {
       },
     ])
     .then(function (data) {
-      let person = {};
-      person.name = data.name;
-      person.email = data.email;
-      person.id = data.id;
-      person.role = data.role;
+      let employee = {};
+      employee.name = data.name;
+      employee.email = data.email;
+      employee.id = data.id;
+      employee.role = data.role;
 
       if (data.role == "intern") {
         inquirer
@@ -64,8 +64,9 @@ function getAnswers() {
             },
           ])
           .then(function (data) {
-            person.school = data.school;
-            employees.push(person);
+            employee.school = data.school;
+
+            employees1.push(employee);
             addNew();
           });
       } else if (data.role == "engineer") {
@@ -78,8 +79,9 @@ function getAnswers() {
             },
           ])
           .then(function (data) {
-            person.github = data.github;
-            employees.push(person);
+            employee.github = data.github;
+
+            employees1.push(employee);
             addNew();
           });
       } else {
@@ -92,8 +94,9 @@ function getAnswers() {
             },
           ])
           .then(function (data) {
-            person.office = data.office;
-            employees.push(person);
+            employee.office = data.office;
+
+            employees1.push(employee);
             addNew();
           });
       }
@@ -112,46 +115,74 @@ function getAnswers() {
             if (data.newperson == "yes") {
               getAnswers();
             } else if (data.newperson == "no") {
-              createClasses();
+              for (let i = 0; i < employees1.length; i++) {
+                if (employees1[i].role === "intern") {
+                  let newperson = new Intern(
+                    employees1[i].name,
+                    employees1[i].email,
+                    employees1[i].id,
+                    employees1[i].role,
+                    employees1[i].school
+                  );
+                  employees.push(newperson);
+                } else if (employees1[i].role === "engineer") {
+                  let newperson = new Engineer(
+                    employees1[i].name,
+                    employees1[i].email,
+                    employees1[i].id,
+                    employees1[i].role,
+                    employees1[i].github
+                  );
+                  employees.push(newperson);
+                } else {
+                  let newperson = new Manager(
+                    employees1[i].name,
+                    employees1[i].email,
+                    employees1[i].id,
+                    employees1[i].role,
+                    employees1[i].office
+                  );
+                  // employees.push(newperson);
+                }
+                console.log(employees);
+              }
             }
           });
       }
     });
 }
 
-function createClasses() {
-  for (let i = 0; i <= employees.length; i++) {
-    if (employees[i].role == "intern") {
-      let newperson = new Intern(
-        employees[i].name,
-        employees[i].email,
-        employees[i].id,
-        employees[i].role,
-        employees[i].school
-      );
-      employees.push(newperson);
-    } else if (employees[i].role == "engineer") {
-      let newperson = new Engineer(
-        employees[i].name,
-        employees[i].email,
-        employees[i].id,
-        employees[i].role,
-        employees[i].github
-      );
-      employees.push(newperson);
-    } else {
-      let newperson = new Manager(
-        employees[i].name,
-        employees[i].email,
-        employees[i].id,
-        employees[i].role,
-        employees[i].office
-      );
-      employees.push(newperson);
-    }
-    console.log(employees);
-  }
-}
+// for (let i = 0; i <= employees1.length; i++) {
+//   if (employees1[i].role == "intern") {
+//     let newperson = new Intern(
+//       employees1[i].name,
+//       employees1[i].email,
+//       employees1[i].id,
+//       employees1[i].role,
+//       employees1[i].school
+//     );
+//     employees1.push(newperson);
+//   } else if (employees1[i].role == "engineer") {
+//     let newperson = new Engineer(
+//       employees1[i].name,
+//       employees1[i].email,
+//       employees1[i].id,
+//       employees1[i].role,
+//       employees1[i].github
+//     );
+//     employees1.push(newperson);
+//   } else {
+//     let newperson = new Manager(
+//       employees1[i].name,
+//       employees1[i].email,
+//       employees1[i].id,
+//       employees1[i].role,
+//       employees1[i].office
+//     );
+//     employees1.push(newperson);
+//   }
+//   console.log(employees1);
+// }
 
 // var filename = data.name.toLowerCase().split(' ').join('') + '.json';
 
