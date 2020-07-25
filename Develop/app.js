@@ -116,36 +116,41 @@ function getAnswers() {
               getAnswers();
             } else if (data.newperson == "no") {
               for (let i = 0; i < employees1.length; i++) {
-                if (employees1[i].role === "intern") {
+                if (employees1[i].role == "intern") {
                   let newperson = new Intern(
                     employees1[i].name,
-                    employees1[i].email,
                     employees1[i].id,
-                    employees1[i].role,
+                    employees1[i].email,
+
                     employees1[i].school
                   );
                   employees.push(newperson);
-                } else if (employees1[i].role === "engineer") {
+                  html = render(employees);
+                } else if (employees1[i].role == "engineer") {
                   let newperson = new Engineer(
                     employees1[i].name,
-                    employees1[i].email,
                     employees1[i].id,
-                    employees1[i].role,
+                    employees1[i].email,
+
                     employees1[i].github
                   );
                   employees.push(newperson);
+                  html = render(employees);
                 } else {
                   let newperson = new Manager(
                     employees1[i].name,
-                    employees1[i].email,
                     employees1[i].id,
-                    employees1[i].role,
+                    employees1[i].email,
+
                     employees1[i].office
                   );
-                  // employees.push(newperson);
+                  employees.push(newperson);
+                  html = render(employees);
                 }
-                console.log(employees);
               }
+
+              html = render(employees);
+              fs.writeFileSync(outputPath, html, "utf8");
             }
           });
       }
