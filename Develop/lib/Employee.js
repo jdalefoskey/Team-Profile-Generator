@@ -18,6 +18,6 @@ class Employee {
     getRole() {
         return this.role;
     }
-}
+};
     
 module.exports = Employee;
