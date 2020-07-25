@@ -15,73 +15,121 @@ const OUTPUT_DIR = path.resolve(__dirname,"output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 
-let teamMembers = [];
+let employees = [];
+
 
 getAnswers();
 
 // Write code to use inquirer to gather information about the development team members,
 
 function getAnswers () {
-inquirer
-  .prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "What is your name?"
-    },
-    {
-      type: "input",
-      name: "email",
-      message: "What is your email address?"
-    },
-    {
-      type: "input",
-      name: "id",
-      message: "What is employee id?"
-    },
-    {
-      type: "input",
-      name: "school",
-      message: "What school do you attend?"
-    },
-    {
-      type: "input",
-      name: "github",
-      message: "Enter your GitHub Username"
-    },
-    {
-      type: "input",
-      name: "office",
-      message: "What is your office number?"
-    },
-    {
-      type: "checkbox",
-      name: "role",
-      message: "What is your role?",
-      choices: [ 'engineer', 'intern', 'manager']
-    },
-    {
-      type: "input",
-      name: "add",
-      message: "Do you need to add another team member?"
-    }
-  ])
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is your name?"
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is your email address?"
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is employee id?"
+      },
+      {
+        type: "checkbox",
+        name: "role",
+        message: "What is your role?",
+        choices: [ 'engineer', 'intern', 'manager']
+      }
+    
+    ])
   .then(function(data) {
-    // lets you add additional team members as required
-    let yes = "yes";
-    teamMembers.push(data);
-    if (data.add === "yes") {
-      getAnswers();
-      // and to create objects for each team member (using the correct classes as blueprints!)
-     } 
-  });
-};
+    
+    let person ={};
+    person.name = data.name;
+    person.email = data.email;
+    person.id = data.id;
+    person.role = data.role;
 
- for (let i=0; i < teamMembers.length; i++) {
+    if (data.role == "intern") {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "school",
+            message: "What is your school name?"
+          }
+        ])
+        .then(function(data) {
+          person.school =data.school
+          employees.push(person);
+          addNew();
+        })
+    } else if (data.role == "engineer") {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "github",
+            message: "What is your github username?"
+          }
+        ])
+        .then(function(data) {
+          person.github =data.github
+          employees.push(person);
+          addNew();
+        })
+    } else  {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "office",
+            message: "What is your office number?"
+          }
+        ])
+        .then(function(data) {
+          person.office =data.office
+          employees.push(person);
+          addNew();
+        })
+    };
     
-     = new Engineer()
-    
- }
+
+    function addNew() {
+      inquirer
+      .prompt([
+        {
+          type: "checkbox",
+          name: "newperson",
+          message: "Would you like to add another person?",
+          choices: [ 'yes', 'no']
+        }
+      ])
+      .then(function(data) {
+        if (data.newperson == "yes") {
+         getAnswers();
+        } else if (data.newperson == "no") {
+          console.log(employees);
+        }
+      })  
+    };
+  });
+}
+  
+
+  
+
+  
+
+
+
+
 
 
  
