@@ -9,7 +9,6 @@
   ---
   > This project is was created using javascript and node.js. It is a command line app that allows you to dynamically create a webpage of team members information cards, javascript classes were used also.
 
-  ![Alt text](/./screenshot.png?raw=true "Screen Shot")
   
   ### Table of Contents
   ---
@@ -34,7 +33,7 @@
   ```
    
   ```    
-       >node app.js
+       node app.js
   ```
 
   ### License  [![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)
