@@ -24,9 +24,9 @@
   > From the command line prompt you will run the following commands within the project directory folder.
 
 
-  ### Installation
+  ### Installatio.
   ---
-  > To get started you need to istall dependancies, from root folder type the following in the terminal window
+  > To get started you need to istall dependancies with the first command, then start the application with the second command. From root folder type the following in the terminal window
   
   ```
         npm install - A
