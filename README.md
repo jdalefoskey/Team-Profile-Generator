@@ -27,10 +27,15 @@
 
   ### Installation
   ---
-  > To get started you need to istall dependancies, from root folder type the following in the terminal window:
-        >npm install - A
+  > To get started you need to istall dependancies, from root folder type the following in the terminal window
+  ```
+        npm install - A
+  ```
     Then you can execute the program by typing the following in command line:
-        >node app.js
+    
+   ```    
+       >node app.js
+   ```
 
   ### License  [![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)](http://www.wtfpl.net/about/)
   ---
